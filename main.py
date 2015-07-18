@@ -25,13 +25,14 @@ def getYesterdayUnixTime():
 	yesterdayTime = timeNow - 24*60*60
 	return yesterdayTime
 
-print(getYesterdayUnixTime())
+r = getUserURLResponse(auth_token, getYesterdayUnixTime())
 
-#r = getUserURLResponse(auth_token, 1437246999)
+for goal in r['goals']:
+	if goal['slug'] == defaultGoal:
+		print('Goal match found!')
+		for datapoint in goal['datapoints']:
+			print(datapoint)
 
-#for goal in r['goals']:
-#	if goal['slug'] == defaultGoal:
-#		print('Goal match found!')
-#		for datapoint in goal['datapoints']:
-#			print(datapoint)
+
+
 
