@@ -1,10 +1,9 @@
 # TO DO:
-# Look for data points since the script was last run (so time of last run must be recorded)
 # For each new datapoint, write the pomodoro comment to a new google calendar event
 # If possible, check and make sure the event doesn't already exist
 # Calendar event length = POMODORO_LENGTH * value of datapoint
-# Calendar event time = timestamp of datapoint - event length
-# Calendar event name = Pomodoro comment (if it exists), else "Pomodoro"
+# Calendar event time   = timestamp of datapoint - event length
+# Calendar event name   = Pomodoro comment (if it exists), else "Pomodoro"
 
 import requests
 
@@ -17,7 +16,13 @@ def getUserURLResponse(authToken, diffSince):
 
 	response = requests.get('https://www.beeminder.com/api/v1/users/me.json', params = params)
 
-	print(response.json())
+	return response.json()
 
-getUserURLResponse(auth_token, 1437246999)
+r = getUserURLResponse(auth_token, 1437246999)
+
+for goal in r['goals']:
+	if goal['slug'] == defaultGoal:
+		print('Goal match found!')
+		for datapoint in goal['datapoints']:
+			print(datapoint)
 
