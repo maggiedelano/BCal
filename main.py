@@ -6,6 +6,7 @@
 # Calendar event name   = Pomodoro comment (if it exists), else "Pomodoro"
 
 import requests
+import time
 
 auth_token = 'YOUR_AUTH_TOKEN_HERE'
 defaultGoal = 'pomodoros'
@@ -18,11 +19,19 @@ def getUserURLResponse(authToken, diffSince):
 
 	return response.json()
 
-r = getUserURLResponse(auth_token, 1437246999)
+def getYesterdayUnixTime():
+	"""Get the Unix Time of 24 hours ago."""
+	timeNow = int(time.time())
+	yesterdayTime = timeNow - 24*60*60
+	return yesterdayTime
 
-for goal in r['goals']:
-	if goal['slug'] == defaultGoal:
-		print('Goal match found!')
-		for datapoint in goal['datapoints']:
-			print(datapoint)
+print(getYesterdayUnixTime())
+
+#r = getUserURLResponse(auth_token, 1437246999)
+
+#for goal in r['goals']:
+#	if goal['slug'] == defaultGoal:
+#		print('Goal match found!')
+#		for datapoint in goal['datapoints']:
+#			print(datapoint)
 
